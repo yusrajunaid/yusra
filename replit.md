@@ -91,6 +91,24 @@ Generated Zod schemas from the OpenAPI spec (e.g. `HealthCheckResponse`). Used b
 
 Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHealthCheck`, `healthCheck`).
 
+### `artifacts/portfolio` (`@workspace/portfolio`)
+
+React + Vite personal portfolio for Yusra Junaid. Runs on dynamic PORT env variable.
+
+- Entry: `src/main.tsx`, pages in `src/pages/Home.tsx`
+- Data: `src/data/portfolio-data.ts` — static portfolio content
+- Components:
+  - `src/components/DottedSurface.tsx` — THREE.js animated wave background
+  - `src/components/ui/spotlight-card.tsx` — GlowCard with CSS pointer spotlight effect
+  - `src/components/ui/particle-button.tsx` — Button with burst particle animation
+  - `src/components/ui/animated-testimonials.tsx` — Framer Motion testimonial slider
+  - `src/components/ui/limelight-nav.tsx` — Mobile bottom dock nav with limelight highlight
+  - `src/components/ui/radial-orbital-timeline.tsx` — Interactive orbital experience timeline
+  - `src/components/ui/footer-section.tsx` — Animated footer with framer-motion
+  - `src/components/ui/orbiting-skills.tsx` — Animated skill icons orbiting a central node
+- Key deps: three, framer-motion, @tabler/icons-react, react-icons, lucide-react
+- Preview path: `/`
+
 ### `scripts` (`@workspace/scripts`)
 
 Utility scripts package. Each script is a `.ts` file in `src/` with a corresponding npm script in `package.json`. Run scripts via `pnpm --filter @workspace/scripts run <script>`. Scripts can import any workspace package (e.g., `@workspace/db`) by adding it as a dependency in `scripts/package.json`.
