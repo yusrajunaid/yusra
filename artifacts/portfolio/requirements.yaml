@@ -1,0 +1,13 @@
+packages:
+  "three": "Required for the animated DottedSurface particle background in the hero section"
+  "framer-motion": "Required for smooth scroll animations and refined page transitions"
+  "react-icons": "Required for specific tech stack logos (Python, TensorFlow, etc.)"
+  "clsx": "Utility for conditionally joining classNames"
+  "tailwind-merge": "Utility for merging tailwind classes without style conflicts"
+  "next-themes": "Requested for theme management"
+
+images: []
+
+notes:
+  - "No backend API needed; all data is static and hardcoded for the portfolio."
+  - "Using raw Three.js for the particle wave background as it provides fine-grained control without needing the entire R3F ecosystem."
