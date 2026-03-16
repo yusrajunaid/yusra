@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, ExternalLink, ChevronRight, Briefcase, Code2, Star, Brain } from "lucide-react";
+import { Github, ExternalLink, ChevronRight, Briefcase, Code2, Star, Brain, MapPin, ArrowUpRight, Mail } from "lucide-react";
 import { DottedSurface } from "@/components/DottedSurface";
 import { Navigation } from "@/components/Navigation";
 import { Section } from "@/components/Section";
@@ -60,7 +60,7 @@ const TIMELINE_DATA = [
   },
   {
     id: 3,
-    title: "AI Sentiment Tool",
+    title: "AI Sentiment",
     date: "2023",
     content: "NLP tool for real-time sentiment analysis. Processes thousands of text streams per minute with 93% accuracy.",
     category: "Project",
@@ -82,7 +82,7 @@ const TIMELINE_DATA = [
   },
   {
     id: 5,
-    title: "ML Pipeline Dashboard",
+    title: "ML Dashboard",
     date: "2023",
     content: "Visual manager for ML training pipelines. Real-time monitoring of epochs, loss functions, and resource utilization.",
     category: "Project",
@@ -94,30 +94,10 @@ const TIMELINE_DATA = [
 ];
 
 const NAV_ITEMS = [
-  {
-    id: 'projects',
-    icon: <Code2 />,
-    label: 'Projects',
-    onClick: () => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }),
-  },
-  {
-    id: 'skills',
-    icon: <Star />,
-    label: 'Skills',
-    onClick: () => document.querySelector('#skills')?.scrollIntoView({ behavior: 'smooth' }),
-  },
-  {
-    id: 'experience',
-    icon: <Briefcase />,
-    label: 'Experience',
-    onClick: () => document.querySelector('#experience')?.scrollIntoView({ behavior: 'smooth' }),
-  },
-  {
-    id: 'writing',
-    icon: <Brain />,
-    label: 'Writing',
-    onClick: () => document.querySelector('#writing')?.scrollIntoView({ behavior: 'smooth' }),
-  },
+  { id: 'projects', icon: <Code2 />, label: 'Projects', onClick: () => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) },
+  { id: 'skills', icon: <Star />, label: 'Skills', onClick: () => document.querySelector('#skills')?.scrollIntoView({ behavior: 'smooth' }) },
+  { id: 'experience', icon: <Briefcase />, label: 'Experience', onClick: () => document.querySelector('#experience')?.scrollIntoView({ behavior: 'smooth' }) },
+  { id: 'writing', icon: <Brain />, label: 'Writing', onClick: () => document.querySelector('#writing')?.scrollIntoView({ behavior: 'smooth' }) },
 ];
 
 export default function Home() {
@@ -126,113 +106,206 @@ export default function Home() {
       <Navigation />
 
       <main className="flex-1">
-        {/* HERO SECTION */}
-        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20">
+        {/* ─── HERO ─────────────────────────────────────────────── */}
+        <section className="relative min-h-screen flex items-center overflow-hidden">
           <DottedSurface />
 
-          <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-12 relative z-10 w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="max-w-3xl"
-            >
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-medium text-foreground tracking-tight leading-tight mb-6">
-                Hi, I'm {USER_INFO.name}.<br />
-                <span className="text-muted-foreground">{USER_INFO.title}</span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl leading-relaxed">
-                {USER_INFO.bio}
-              </p>
-
-              <div className="flex flex-wrap items-center gap-4 mb-16">
-                <ParticleButton
-                  size="lg"
-                  className="rounded-full shadow-lg hover:shadow-xl transition-all"
-                  onClick={() => window.open(USER_INFO.github, "_blank")}
-                >
-                  <Github className="mr-2 h-5 w-5" />
-                  GitHub Profile
-                </ParticleButton>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full bg-background/50 backdrop-blur-sm"
-                  onClick={() => {
-                    document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  View Work
-                </Button>
-              </div>
-
-              <div className="flex items-center gap-6 text-muted-foreground">
-                <p className="text-sm font-medium uppercase tracking-wider">Tech Stack</p>
-                <div className="h-px w-12 bg-border"></div>
-                <div className="flex gap-4">
-                  {TECH_STACK.map((tech, i) => (
-                    <motion.div
-                      key={tech.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.5 + (i * 0.1), duration: 0.4 }}
-                      title={tech.name}
-                      className="text-foreground/60 hover:text-foreground transition-colors"
-                    >
-                      <tech.icon size={24} />
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+          {/* Gradient radial behind text */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
+            <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/3 rounded-full blur-[120px]" />
           </div>
 
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 1 }}
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          >
-            <span className="text-xs font-medium tracking-widest text-muted-foreground uppercase">Scroll</span>
-            <div className="w-px h-12 bg-gradient-to-b from-muted-foreground to-transparent"></div>
-          </motion.div>
+          <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-12 relative z-10 w-full pt-24 pb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+              {/* LEFT — Text */}
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+              >
+                {/* Status badge */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.1, duration: 0.5 }}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full border border-border bg-card/60 backdrop-blur-sm text-xs font-medium text-muted-foreground"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Available for new opportunities
+                </motion.div>
+
+                <h1 className="text-4xl sm:text-5xl md:text-[3.5rem] font-display font-semibold text-foreground tracking-tight leading-[1.1] mb-4">
+                  {USER_INFO.name}
+                </h1>
+
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="h-px w-8 bg-border" />
+                  <span className="text-base font-medium text-muted-foreground">{USER_INFO.title}</span>
+                </div>
+
+                <p className="text-base text-muted-foreground leading-relaxed mb-8 max-w-md">
+                  {USER_INFO.bio} Currently focused on AI/ML engineering and building developer tools.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3 mb-10">
+                  <ParticleButton
+                    size="default"
+                    className="rounded-lg gap-2"
+                    onClick={() => window.open(USER_INFO.github, "_blank")}
+                  >
+                    <Github size={16} />
+                    GitHub
+                  </ParticleButton>
+                  <Button
+                    size="default"
+                    variant="outline"
+                    className="rounded-lg gap-2 bg-background/50 backdrop-blur-sm"
+                    onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    View Projects
+                    <ArrowUpRight size={15} />
+                  </Button>
+                  <Button
+                    size="default"
+                    variant="ghost"
+                    className="rounded-lg gap-2"
+                    onClick={() => window.open(`mailto:${USER_INFO.email}`, "_blank")}
+                  >
+                    <Mail size={15} />
+                    Contact
+                  </Button>
+                </div>
+
+                {/* Mini stats row */}
+                <div className="flex items-center gap-6 text-sm">
+                  {[
+                    { value: "2+", label: "Years Exp." },
+                    { value: "6+", label: "Projects" },
+                    { value: "2", label: "Companies" },
+                  ].map((stat) => (
+                    <div key={stat.label}>
+                      <div className="font-semibold text-foreground">{stat.value}</div>
+                      <div className="text-xs text-muted-foreground">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* RIGHT — Info card + tech stack */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
+                className="flex flex-col gap-4"
+              >
+                {/* Profile card */}
+                <div className="rounded-2xl border border-border bg-card/60 backdrop-blur-md p-6 shadow-lg">
+                  <div className="flex items-start gap-4">
+                    {/* Avatar circle */}
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-foreground/20 to-foreground/5 border border-border flex items-center justify-center text-2xl font-display font-bold text-foreground flex-shrink-0">
+                      YJ
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-foreground">{USER_INFO.name}</div>
+                      <div className="text-sm text-muted-foreground">{USER_INFO.title}</div>
+                      <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground">
+                        <MapPin size={11} />
+                        Remote · Open to relocation
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 pt-4 border-t border-border">
+                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">Specialization</div>
+                    <div className="flex flex-wrap gap-2">
+                      {["Full-Stack Dev", "AI/ML", "NLP", "DevOps", "React"].map((tag) => (
+                        <span key={tag} className="px-2.5 py-1 text-xs rounded-md bg-muted text-muted-foreground border border-border/60">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">Tech Stack</div>
+                    <div className="flex gap-3">
+                      {TECH_STACK.map((tech, i) => (
+                        <motion.div
+                          key={tech.name}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.5 + i * 0.07 }}
+                          title={tech.name}
+                          className="text-muted-foreground hover:text-foreground transition-colors cursor-default"
+                        >
+                          <tech.icon size={20} />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick stats card */}
+                <div className="grid grid-cols-2 gap-3">
+                  {EXPERIENCE.map((job) => (
+                    <div key={job.id} className="rounded-xl border border-border bg-card/40 backdrop-blur-sm p-4">
+                      <div className="text-xs font-medium text-muted-foreground mb-1">{job.company}</div>
+                      <div className="text-sm font-semibold text-foreground leading-snug">{job.role.split(" ").slice(0, 3).join(" ")}</div>
+                      <div className="text-xs text-muted-foreground mt-1">{job.period}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </section>
 
-        {/* PROJECTS SECTION */}
+        {/* ─── PROJECTS ─────────────────────────────────────────── */}
         <Section id="projects" title="Selected Works">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {PROJECTS.map((project, i) => (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
               >
                 <GlowCard
                   customSize
                   glowColor={(['blue', 'purple', 'green', 'orange', 'blue', 'purple'] as const)[i % 6]}
                   className="h-full flex flex-col p-0 overflow-hidden"
                 >
-                  <div className="flex flex-col h-full p-6">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-display font-semibold text-foreground mb-2">{project.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4 mb-4">{project.description}</p>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {project.tags.map(tag => (
-                          <Badge key={tag} variant="secondary" className="text-xs font-normal">{tag}</Badge>
-                        ))}
+                  <div className="flex flex-col h-full p-5">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="w-9 h-9 rounded-lg bg-muted/50 border border-border flex items-center justify-center">
+                        <Code2 size={16} className="text-muted-foreground" />
+                      </div>
+                      <div className="flex gap-1.5">
+                        <button
+                          onClick={() => window.open(project.repoUrl, "_blank")}
+                          className="p-1.5 rounded-md hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                          title="View code"
+                        >
+                          <Github size={14} />
+                        </button>
+                        <button
+                          onClick={() => window.open(project.demoUrl, "_blank")}
+                          className="p-1.5 rounded-md hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                          title="Live demo"
+                        >
+                          <ExternalLink size={14} />
+                        </button>
                       </div>
                     </div>
-                    <div className="flex justify-between border-t border-border/30 pt-4 mt-2">
-                      <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" onClick={() => window.open(project.repoUrl, "_blank")}>
-                        <Github className="mr-2 h-4 w-4" /> Code
-                      </Button>
-                      <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" onClick={() => window.open(project.demoUrl, "_blank")}>
-                        <ExternalLink className="mr-2 h-4 w-4" /> Demo
-                      </Button>
+                    <h3 className="font-semibold text-foreground mb-2">{project.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-1 mb-4">{project.description}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tags.map(tag => (
+                        <span key={tag} className="px-2 py-0.5 text-xs rounded-md bg-muted text-muted-foreground border border-border/60">{tag}</span>
+                      ))}
                     </div>
                   </div>
                 </GlowCard>
@@ -241,86 +314,48 @@ export default function Home() {
           </div>
         </Section>
 
-        {/* SKILLS SECTION */}
+        {/* ─── SKILLS ───────────────────────────────────────────── */}
         <Section id="skills" title="Technical Expertise" className="bg-muted/20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Orbiting Skills Visualization */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: 0.6 }}
             >
               <OrbitingSkills />
             </motion.div>
 
-            {/* Skill proficiency bars */}
-            <div className="space-y-10">
-              {SKILL_CATEGORIES.slice(0, 2).map((category, i) => (
+            <div className="space-y-8">
+              {SKILL_CATEGORIES.map((category, i) => (
                 <motion.div
                   key={category.title}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: i * 0.15 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
                 >
-                  <h3 className="text-lg font-display font-medium mb-5 flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary" />
+                  <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-foreground/50" />
                     {category.title}
                   </h3>
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {category.skills.map((skill) => (
                       <div key={skill.name}>
                         <div className="flex justify-between items-center mb-1.5">
                           <div className="flex items-center gap-2">
-                            <skill.icon className="text-muted-foreground" size={14} />
-                            <span className="font-medium text-sm">{skill.name}</span>
+                            <skill.icon className="text-muted-foreground" size={13} />
+                            <span className="text-sm font-medium text-foreground">{skill.name}</span>
                           </div>
-                          <span className="text-xs text-muted-foreground">{skill.proficiency}%</span>
+                          <span className="text-xs text-muted-foreground tabular-nums">{skill.proficiency}%</span>
                         </div>
-                        <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
+                        <div className="h-1 w-full bg-border rounded-full overflow-hidden">
                           <motion.div
-                            className="h-full bg-foreground rounded-full"
+                            className="h-full bg-foreground/80 rounded-full"
                             initial={{ width: 0 }}
                             whileInView={{ width: `${skill.proficiency}%` }}
                             viewport={{ once: true }}
-                            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-              {SKILL_CATEGORIES.slice(2).map((category, i) => (
-                <motion.div
-                  key={category.title}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: (i + 2) * 0.15 }}
-                >
-                  <h3 className="text-lg font-display font-medium mb-5 flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary" />
-                    {category.title}
-                  </h3>
-                  <div className="space-y-4">
-                    {category.skills.map((skill) => (
-                      <div key={skill.name}>
-                        <div className="flex justify-between items-center mb-1.5">
-                          <div className="flex items-center gap-2">
-                            <skill.icon className="text-muted-foreground" size={14} />
-                            <span className="font-medium text-sm">{skill.name}</span>
-                          </div>
-                          <span className="text-xs text-muted-foreground">{skill.proficiency}%</span>
-                        </div>
-                        <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full bg-foreground rounded-full"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.proficiency}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+                            transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
                           />
                         </div>
                       </div>
@@ -332,71 +367,69 @@ export default function Home() {
           </div>
         </Section>
 
-        {/* EXPERIENCE SECTION — Radial Orbital Timeline */}
+        {/* ─── EXPERIENCE ───────────────────────────────────────── */}
         <Section id="experience" title="Experience">
-          <div className="text-center mb-6 text-sm text-muted-foreground">
-            Click on any node to explore details. Click the canvas to reset.
-          </div>
+          <p className="text-sm text-muted-foreground text-center mb-8">
+            Click any node to explore — click the background to reset.
+          </p>
           <RadialOrbitalTimeline timelineData={TIMELINE_DATA} />
 
-          {/* Classic timeline fallback for mobile */}
-          <div className="mt-12 max-w-3xl mx-auto md:hidden">
-            <div className="relative border-l border-border ml-3 space-y-10">
-              {EXPERIENCE.map((job, i) => (
-                <motion.div
-                  key={job.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: i * 0.2 }}
-                  className="relative pl-8"
-                >
-                  <div className="absolute w-5 h-5 bg-background rounded-full border-2 border-foreground -left-[11px] top-1 flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 bg-foreground rounded-full" />
-                  </div>
-                  <div className="mb-1">
-                    <h3 className="text-lg font-display font-medium text-foreground">{job.role}</h3>
-                    <span className="text-sm text-muted-foreground">{job.company} · {job.period}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{job.description}</p>
-                </motion.div>
-              ))}
-            </div>
+          {/* Classic timeline — visible on all sizes for context */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+            {EXPERIENCE.map((job, i) => (
+              <motion.div
+                key={job.id}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="rounded-2xl border border-border bg-card p-6 relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-foreground/[0.03] rounded-full -translate-y-1/2 translate-x-1/2" />
+                <div className="text-xs font-mono text-muted-foreground mb-1">{job.period}</div>
+                <h3 className="font-semibold text-foreground leading-snug mb-1">{job.role}</h3>
+                <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-3">
+                  <Briefcase size={13} />
+                  {job.company}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{job.description}</p>
+              </motion.div>
+            ))}
           </div>
         </Section>
 
-        {/* TESTIMONIALS SECTION */}
+        {/* ─── TESTIMONIALS ─────────────────────────────────────── */}
         <Section id="testimonials" title="What People Say" className="bg-muted/20">
           <AnimatedTestimonials testimonials={TESTIMONIALS} autoplay={true} />
         </Section>
 
-        {/* WRITING SECTION */}
+        {/* ─── WRITING ──────────────────────────────────────────── */}
         <Section id="writing" title="Recent Writing">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {BLOG_POSTS.map((post, i) => (
               <motion.div
                 key={post.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
               >
                 <a href="#" className="block h-full group">
-                  <div className="h-full p-6 rounded-2xl bg-card border border-border/50 hover:border-border hover:shadow-lg transition-all duration-300 flex flex-col">
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4 font-medium uppercase tracking-wider">
+                  <div className="h-full p-5 rounded-2xl bg-card border border-border hover:border-foreground/20 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
                       <span>{post.date}</span>
                       <span className="w-1 h-1 rounded-full bg-border" />
                       <span>{post.readTime}</span>
                     </div>
-                    <h3 className="text-lg font-display font-medium mb-3 group-hover:text-primary transition-colors">
+                    <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors leading-snug">
                       {post.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-1">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">
                       {post.excerpt}
                     </p>
-                    <div className="flex items-center text-sm font-semibold text-primary mt-auto">
+                    <div className="flex items-center text-xs font-semibold text-primary">
                       Read Article
-                      <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                      <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </a>
@@ -406,7 +439,7 @@ export default function Home() {
         </Section>
       </main>
 
-      {/* FOOTER */}
+      {/* ─── FOOTER ───────────────────────────────────────────── */}
       <PortfolioFooter
         name={USER_INFO.name}
         github={USER_INFO.github}
@@ -414,12 +447,9 @@ export default function Home() {
         email={USER_INFO.email}
       />
 
-      {/* LIMELIGHT NAV — Mobile bottom dock */}
+      {/* ─── MOBILE BOTTOM NAV ────────────────────────────────── */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden">
-        <LimelightNav
-          items={NAV_ITEMS}
-          className="shadow-2xl"
-        />
+        <LimelightNav items={NAV_ITEMS} className="shadow-2xl" />
       </div>
     </div>
   );
